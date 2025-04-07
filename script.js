@@ -4,7 +4,7 @@ function detect() {
   
     resultBox.innerHTML = "⏳ Detecting...";
   
-    fetch("anxiety-detection.railway.internal/predict", {
+    fetch("https://anxiety-detection-production.up.railway.app/predict", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
