@@ -1,23 +1,11 @@
-function detect() {
-    const text = document.getElementById("inputText").value;
-    const resultBox = document.getElementById("resultBox");
-  
-    resultBox.innerHTML = "⏳ Detecting...";
-  
-    fetch("https://anxiety-detection-production.up.railway.app/predict", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ text })
-    })
-    .then(res => res.json())
-    .then(data => {
-      const color = data.result === "Normal" ? "green" : "red";
-      resultBox.innerHTML = `<span style="color:${color};"><b>${data.result}</b></span><br>Confidence: ${data.confidence}%`;
-    })
-    .catch(() => {
-      resultBox.innerHTML = "<span style='color:red;'>❌ Could not reach backend.</span>";
-    });
-  }
-  
+
+async function predict() {
+  const userInput = document.getElementById("inputText").value;
+  const response = await fetch("https://anxiety-detection-production.up.railway.app/predict", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: userInput })
+  });
+  const data = await response.json();
+  document.getElementById("output").innerText = JSON.stringify(data, null, 2);
+}
